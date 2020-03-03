@@ -32,7 +32,7 @@ app.post('/registro',body_parser, function(req,res){
     var createdAt = new Date(day, month, year);
     var updatedAt = new Date(day, month, year);
 
-    var query = 'nsert into Usuarios(User_Name,Correo_Electronico, Primer_Nombre,Segundo_Nombre, Primer_Apellido, Segundo_Apellido,' 
+    var query = 'insert into Usuarios(User_Name,Correo_Electronico, Primer_Nombre,Segundo_Nombre, Primer_Apellido, Segundo_Apellido,' 
                 +'Telefono, Fecha_Nacimiento, Pais, Ciudad, Contrasena, createdAt, updatedAt) '
                 +'values('+user_name+','+ email+','+primer_nombre+','+ segundo_nombre+','+ primer_apellido+','+segundo_apellido
                 +','+ telefono +','+ fecha_nacimiento+','+ pais+','+ ciudad+','+ password +','+ createdAt+','+ updatedAt +');'
