@@ -1,8 +1,8 @@
 'use strict';
 const express = require('express');
 const app = express();
-const PORT = 3000;
-const HOST = '35.232.66.135';
+const PORT = 8080;
+const HOST = '0.0.0.0';
 
 var body_parser = require('body-parser').json();
 
@@ -16,6 +16,9 @@ const mc = mysql.createConnection({
 });
 mc.connect();
 
+app.get('/', (req,res)=>{
+    res.send("HellowWorld");
+})
 
 app.post('/registro',body_parser, function(req,res){
     var user_name = req.body.user_name;
@@ -29,23 +32,38 @@ app.post('/registro',body_parser, function(req,res){
     var pais = req.body.pais;
     var ciudad = req.body.ciudad;
     var password = req.body.password;
-    var createdAt = new Date(day, month, year);
-    var updatedAt = new Date(day, month, year);
+    var createdAt = new Date();
+    var updatedAt = new Date();
 
     var query = 'insert into Usuarios(User_Name,Correo_Electronico, Primer_Nombre,Segundo_Nombre, Primer_Apellido, Segundo_Apellido,' 
                 +'Telefono, Fecha_Nacimiento, Pais, Ciudad, Contrasena, createdAt, updatedAt) '
-                +'values('+user_name+','+ email+','+primer_nombre+','+ segundo_nombre+','+ primer_apellido+','+segundo_apellido
-                +','+ telefono +','+ fecha_nacimiento+','+ pais+','+ ciudad+','+ password +','+ createdAt+','+ updatedAt +');'
+                +'values("'+user_name+'","'+ email+'","'+primer_nombre+'","'+ segundo_nombre+'","'+ primer_apellido+'","'+segundo_apellido
+                +'",'+ telefono +',"'+ fecha_nacimiento.format("%Y/%m/%d", true)+'","'+ pais+'","'+ ciudad+'","'+ password +'","'+ createdAt.format ("%Y/%m/%d", true)+'","'+ updatedAt.format ("%Y/%m/%d", true) +'");'
     
     mc.query(query, function (err, result) {
         if (err){
-            res.send("FAIL!!!!");throw err;}
+            res.send("FAIL!!!");throw err;}
         else{
             res.send("SUCCESS");}
-        });
-        
+        });        
 });
 
+Date.prototype.format = function(fstr, utc) {
+    var that = this;
+    utc = utc ? 'getUTC' : 'get';
+    return fstr.replace (/%[YmdHMS]/g, function (m) {
+      switch (m) {
+      case '%Y': return that[utc + 'FullYear'] ();
+      case '%m': m = 1 + that[utc + 'Month'] (); break;
+      case '%d': m = that[utc + 'Date'] (); break;
+      case '%H': m = that[utc + 'Hours'] (); break;
+      case '%M': m = that[utc + 'Minutes'] (); break;
+      case '%S': m = that[utc + 'Seconds'] (); break;
+      default: return m.slice (1); 
+      }    
+      return ('0' + m).slice (-2);
+    });
+  };
 
 app.listen(PORT,HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
