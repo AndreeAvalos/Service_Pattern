@@ -1,0 +1,23 @@
+{
+  "name": "registro",
+  "version": "1.0.0",
+  "description": "api para el servicio de registro de usuario",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreeAvalos/Service_Pattern.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreeAvalos/Service_Pattern/issues"
+  },
+  "homepage": "https://github.com/AndreeAvalos/Service_Pattern#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
