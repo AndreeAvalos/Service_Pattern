@@ -111,7 +111,7 @@
 			$.ajax({
 				type: 'POST',
 				url: 'http://34.67.17.255/login',
-				data: JSON.stringify({email: $('#email'), password: ${'#pass'}}), // or JSON.stringify ({name: 'jonas'}),
+				data: JSON.stringify({email: $('#email'), password: $('#pass')}), // or JSON.stringify ({name: 'jonas'}),
 				success: function(data) { console.log(data) },
 				contentType: "application/json",
 				dataType: 'json'
