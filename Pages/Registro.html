@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Working with HTML Forms</title>
+    <meta name="viewport" content="width=device-width">
+    <style>
+        *,
+        *::after,
+        *:before{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html{
+            font:normal 20px/1.5 sans-serif;
+        }
+        h1{
+            margin: 1rem 2rem;
+        }
+        form{
+            margin: 2rem;
+            width: 800px;
+        }
+        .form-box{
+            padding: 1rem;
+            clear: both;
+            width: 100%;
+            position: relative;
+        }
+        .form-box label{
+            font-size: 1rem;
+            float: left;
+            width: 100px;
+            margin-right: 20px;
+        }
+        .form-box input{
+            font-size: 1rem;
+            width: 300px;
+            padding: 0.25rem 1rem;
+        }
+        .form-box select{
+            font-size: 1rem;
+            width: 300px;
+            padding: 0.25rem 1rem;
+        }
+        .form-box option{
+            font-size: 1rem;
+            width: 300px;
+            padding: 0.25rem 1rem;
+        }
+        .form-box input[type="checkbox"]{
+            font-size: 1rem;
+        }
+        .form-box button{
+            font-size: 1rem;
+            border: none;
+            padding: 0.25rem 2rem;
+            margin-right: 1rem;
+            color: white;
+            background-color: cornflowerblue;
+            cursor: pointer;
+        }
+		.form-box2 input{
+            font-size: 1rem;
+            border: none;
+            padding: 0.25rem 2rem;
+            margin-right: 1rem;
+            color: white;
+            background-color: cornflowerblue;
+            cursor: pointer;
+        }
+        
+        .error::after{
+            background-color: hsl(10, 60%, 50%);
+            color: papayawhip;
+            font-size: 1rem;
+            line-height: 1.8;
+            width: 350px;
+            padding-left: 1rem;
+            position:absolute;
+            right: 0;
+            content: attr(data-errormsg);
+        }
+    </style>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <h1>Crear Usuario</h1>
+    
+    <form id="form-registro" action="https://serverlesspattern.azurewebsites.net/api/Registro?code=kezq0LSKVhyqQIg0pax3Z/wS8JNTXr47qE167ae/OEXlFbLFL3XfaQ==" method="post">
+        <div class="form-box error" data-errormsg="">
+            <label for="user_name">User Name</label>
+            <input type="text" id="user_name" name="user_name" autofocus placeholder="Pazhuber69" tabindex="1"/>
+        </div>
+		<div class="form-box" data-errormsg="">
+            <label for="pass">Password</label>
+            <input type="password" id="pass" name="pass" required placeholder="Pazito1234" tabindex="3" />
+        </div>
+        <div class="form-box" data-errormsg="">
+            <label for="email">Correo</label>
+            <input type="email" id="email" name="email" required placeholder="Correo" tabindex="3" />
+        </div>
+		<div class="form-box" data-errormsg="">
+            <label for="primer_nombre">Primer Nombre</label>
+            <input type="text" id="primer_nombre" name="primer_nombre" required placeholder="Fernando" tabindex="3" />
+        </div>
+		<div class="form-box" data-errormsg="">
+            <label for="segundo_nombre">Segundo Nombre</label>
+            <input type="text" id="segundo_nombre" name="segundo_nombre" required placeholder="Jose" tabindex="3" />
+        </div>
+		<div class="form-box" data-errormsg="">
+            <label for="primer_apellido">Primer Apellido</label>
+            <input type="text" id="primer_apellido" name="primer_apellido" required placeholder="Paz" tabindex="3" />
+        </div>
+		<div class="form-box" data-errormsg="">
+            <label for="segundo_apellido">Segundo Apellido</label>
+            <input type="text" id="segundo_apellido" name="segundo_apellido" required placeholder="González" tabindex="3" />
+        </div>
+		<div class="form-box" data-errormsg="">
+            <label for="telefono">Telefono</label>
+            <input type="number" id="telefono" name="telefono" required placeholder="12345678" tabindex="3" />
+        </div>
+		<div class="form-box" data-errormsg="">
+            <label for="fecha_nacimiento">Fecha Nacimiento</label>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" min="1950-12-31" max="2019-12-31" required  tabindex="3" />
+        </div> 
+
+		
+        <div class="form-box" data-errormsg="">
+            <label for="pais">Pais</label>
+            <select id="pais" name="pais" tabindex="4">
+                <option value="0">Guatemala</option>
+                <option value="1">Otro</option>
+            </select>
+        </div>		
+		<div class="form-box" data-errormsg="">
+            <label for="ciudad">Ciudad</label>
+            <input type="text" id="ciudad" name="ciudad" required placeholder="Guatemala" tabindex="3" />
+        </div>
+        <div class="form-box2">
+            <input type="reset" value="Resetear" />
+            <input type="button" id="enviar" class="enviar_Action" value="Registrarse"/>
+        </div>
+        </div>
+		
+    </form>
+	
+	<script>
+		var btnClassClick = function(e){
+			$.ajax({
+				type: 'POST',
+				url: 'http://35.232.66.135:80/registro',
+				data: JSON.stringify({user_name: $('#user_name').val(),email: $('#email').val(),primer_nombre: ('#primer_nombre').val(),segundo_nombre: $('#segundo_nombre').val()
+				,primer_apellido: $('#primer_apellido').val(),segundo_apellido: $('#segundo_apellido').val(),telefono: $('#telefono').val(),fecha_nacimiento: $('#fecha_nacimiento').val(),pais: $('#pais').val(),ciudad: $('#ciudad').val(),password: $('#pass').val();}), 
+				success: function(data) { console.log(data) },
+				contentType: "application/json",
+				dataType: 'json'
+			});
+			
+			
+		}
+
+		$('.enviar_Action').on('click', btnClassClick);
+	</script>
+   
+</body>
+</html>
